@@ -8,7 +8,9 @@ class InvitedGuestState extends Equatable {
     this.isLoadingGetsByInvitationId = false,
     this.isLoadingUpdateById = false,
     this.invitedGuest,
+    this.invitedGuestUpdateById,
     this.invitedGuests = const [],
+    this.isContainsError = false,
   });
 
   final bool isLoadingCheck;
@@ -17,7 +19,9 @@ class InvitedGuestState extends Equatable {
   final bool isLoadingGetsByInvitationId;
   final bool isLoadingUpdateById;
   final InvitedGuestResponse? invitedGuest;
-  final List<InvitedGuestResponse> invitedGuests;
+  final InvitedGuestResponse? invitedGuestUpdateById;
+  final List<InvitedGuestResponse>? invitedGuests;
+  final bool isContainsError;
 
   InvitedGuestState copyWith({
     bool? isLoadingCheck,
@@ -26,7 +30,9 @@ class InvitedGuestState extends Equatable {
     bool? isLoadingGetsByInvitationId,
     bool? isLoadingUpdateById,
     CopyWithValue<InvitedGuestResponse?>? invitedGuest,
-    CopyWithValue<List<InvitedGuestResponse>>? invitedGuests,
+    CopyWithValue<InvitedGuestResponse?>? invitedGuestUpdateById,
+    CopyWithValue<List<InvitedGuestResponse>?>? invitedGuests,
+    bool? isContainsError,
   }) {
     return InvitedGuestState(
       isLoadingCheck: isLoadingCheck ?? this.isLoadingCheck,
@@ -35,7 +41,9 @@ class InvitedGuestState extends Equatable {
       isLoadingGetsByInvitationId: isLoadingGetsByInvitationId ?? this.isLoadingGetsByInvitationId,
       isLoadingUpdateById: isLoadingUpdateById ?? this.isLoadingUpdateById,
       invitedGuest: invitedGuest != null ? invitedGuest.value : this.invitedGuest,
+      invitedGuestUpdateById: invitedGuestUpdateById != null ? invitedGuestUpdateById.value : this.invitedGuestUpdateById,
       invitedGuests: invitedGuests != null ? invitedGuests.value : this.invitedGuests,
+      isContainsError: isContainsError ?? this.isContainsError,
     );
   }
 
@@ -49,5 +57,6 @@ class InvitedGuestState extends Equatable {
     isLoadingGetsByInvitationId,
     isLoadingUpdateById,
     invitedGuest,
+    isContainsError,
   ];
 }

@@ -15,7 +15,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
 
   Future<bool> check(CreateInvitedGuestRequest request) async {
     try {
-      emit(state.copyWith(isLoadingCheck: true, invitedGuest: null.toCopyWithValue()));
+      emit(state.copyWith(isLoadingCheck: true, invitedGuest: null.toCopyWithValue(), isContainsError: false));
 
       final url = Uri.parse('${ApiConfig.url}/invited-guest');
       final response = await http.post(
@@ -31,11 +31,11 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
         return true;
       }
 
-      emit(state.copyWith(isLoadingCheck: false));
+      emit(state.copyWith(isLoadingCheck: false, isContainsError: true));
 
       return false;
     } catch (e) {
-      emit(state.copyWith(isLoadingCheck: false));
+      emit(state.copyWith(isLoadingCheck: false, isContainsError: true));
 
       return false;
     }
@@ -43,7 +43,9 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
 
   Future<bool> upsert(BulkInvitedGuestRequest request) async {
     try {
-      emit(state.copyWith(isLoadingUpsert: true, invitedGuests: <InvitedGuestResponse>[].toCopyWithValue()));
+      emit(
+        state.copyWith(isLoadingUpsert: true, invitedGuests: <InvitedGuestResponse>[].toCopyWithValue(), isContainsError: false),
+      );
 
       final url = Uri.parse('${ApiConfig.url}/invited-guests');
       final response = await http.post(
@@ -61,11 +63,11 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
         return true;
       }
 
-      emit(state.copyWith(isLoadingUpsert: false));
+      emit(state.copyWith(isLoadingUpsert: false, isContainsError: true));
 
       return false;
     } catch (e) {
-      emit(state.copyWith(isLoadingUpsert: false));
+      emit(state.copyWith(isLoadingUpsert: false, isContainsError: true));
 
       return false;
     }
@@ -73,7 +75,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
 
   Future<bool> getById(String id) async {
     try {
-      emit(state.copyWith(isLoadingGetById: true, invitedGuest: null.toCopyWithValue()));
+      emit(state.copyWith(isLoadingGetById: true, invitedGuest: null.toCopyWithValue(), isContainsError: false));
 
       final url = Uri.parse('${ApiConfig.url}/invited-guest/id/$id');
       final response = await http.get(url, headers: {'ngrok-skip-browser-warning': 'true'});
@@ -85,11 +87,11 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
         return true;
       }
 
-      emit(state.copyWith(isLoadingGetById: false));
+      emit(state.copyWith(isLoadingGetById: false, isContainsError: true));
 
       return false;
     } catch (e) {
-      emit(state.copyWith(isLoadingGetById: false));
+      emit(state.copyWith(isLoadingGetById: false, isContainsError: true));
 
       return false;
     }
@@ -97,7 +99,13 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
 
   Future<bool> getsByInvitationId(String invitationId) async {
     try {
-      emit(state.copyWith(isLoadingGetsByInvitationId: true, invitedGuests: <InvitedGuestResponse>[].toCopyWithValue()));
+      emit(
+        state.copyWith(
+          isLoadingGetsByInvitationId: true,
+          invitedGuests: <InvitedGuestResponse>[].toCopyWithValue(),
+          isContainsError: false,
+        ),
+      );
 
       final url = Uri.parse('${ApiConfig.url}/invited-guests/invitation-id/$invitationId');
       final response = await http.get(url, headers: {'ngrok-skip-browser-warning': 'true'});
@@ -111,11 +119,11 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
         return true;
       }
 
-      emit(state.copyWith(isLoadingGetsByInvitationId: false));
+      emit(state.copyWith(isLoadingGetsByInvitationId: false, isContainsError: true));
 
       return false;
     } catch (e) {
-      emit(state.copyWith(isLoadingGetsByInvitationId: false));
+      emit(state.copyWith(isLoadingGetsByInvitationId: false, isContainsError: true));
 
       return false;
     }
@@ -123,7 +131,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
 
   Future<bool> updateById(String id, UpdateInvitedGuestRequest request) async {
     try {
-      emit(state.copyWith(isLoadingUpdateById: true, invitedGuest: null.toCopyWithValue()));
+      emit(state.copyWith(isLoadingUpdateById: true, invitedGuestUpdateById: null.toCopyWithValue(), isContainsError: false));
 
       final url = Uri.parse('${ApiConfig.url}/invited-guest/id/$id');
       final response = await http.patch(
@@ -132,18 +140,30 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200) {
-        final InvitedGuestResponse invitedGuest = InvitedGuestResponse.fromJson(jsonDecode(response.body)['data']);
+        final InvitedGuestResponse invitedGuestUpdateById = InvitedGuestResponse.fromJson(jsonDecode(response.body)['data']);
+        final newInvitedGuests = <InvitedGuestResponse>[];
+        for (final item in state.invitedGuests ?? <InvitedGuestResponse>[]) {
+          if (item.id == invitedGuestUpdateById.id) newInvitedGuests.add(invitedGuestUpdateById);
+          if (item.id == invitedGuestUpdateById.id) continue;
+          newInvitedGuests.add(item);
+        }
 
-        emit(state.copyWith(isLoadingUpdateById: false, invitedGuest: invitedGuest.toCopyWithValue()));
+        emit(
+          state.copyWith(
+            isLoadingUpdateById: false,
+            invitedGuestUpdateById: invitedGuestUpdateById.toCopyWithValue(),
+            invitedGuests: newInvitedGuests.toCopyWithValue(),
+          ),
+        );
 
         return true;
       }
 
-      emit(state.copyWith(isLoadingUpdateById: false));
+      emit(state.copyWith(isLoadingUpdateById: false, isContainsError: true));
 
       return false;
     } catch (e) {
-      emit(state.copyWith(isLoadingUpdateById: false));
+      emit(state.copyWith(isLoadingUpdateById: false, isContainsError: true));
 
       return false;
     }
