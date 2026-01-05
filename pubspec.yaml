@@ -2,25 +2,25 @@ name: iv_project_web_data
 description: "A new Flutter package project."
 version: 0.0.1
 homepage:
-publish_to: 'none'
+publish_to: "none"
 
 environment:
-  sdk: ^3.10.1
+  sdk: ^3.10.4
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  
+
   iv_project_model:
     path: ../iv_project_model
 
   iv_project_core:
     path: ../iv_project_core
 
-  equatable: ^2.0.7
+  equatable: ^2.0.8
   flutter_bloc: ^9.1.1
-  http: ^1.5.0
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:
