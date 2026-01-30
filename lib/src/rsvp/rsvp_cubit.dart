@@ -30,15 +30,7 @@ class RSVPCubit extends Cubit<RSVPState> {
         for (final item in state.rsvps ?? <RSVPResponse>[]) {
           if (item.invitedGuest.id == rsvp.invitedGuest.id) {
             updatedRSVPs.add(
-              RSVPResponse(
-                id: item.id,
-                invitedGuest: rsvp.invitedGuest,
-                message: item.message,
-                createdAt: item.createdAt,
-                nickname: item.nickname,
-                avatar: item.avatar,
-                possiblePresence: item.possiblePresence,
-              ),
+              RSVPResponse(id: item.id, invitedGuest: rsvp.invitedGuest, message: item.message, createdAt: item.createdAt),
             );
           } else {
             updatedRSVPs.add(item);

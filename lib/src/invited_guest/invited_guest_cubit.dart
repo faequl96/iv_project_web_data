@@ -15,7 +15,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
 
   Future<bool> check(CheckInvitedGuestRequest request) async {
     try {
-      emit(state.copyWith(isLoadingCheck: true, invitedGuest: null.toCopyWithValue(), isContainsError: false));
+      emit(state.copyWith(isLoadingCheck: true, isContainsError: false));
 
       final url = Uri.parse('${ApiUrl.value}/invited-guest');
       final response = await http.post(
@@ -75,7 +75,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
 
   Future<bool> getById(String id) async {
     try {
-      emit(state.copyWith(isLoadingGetById: true, invitedGuest: null.toCopyWithValue(), isContainsError: false));
+      emit(state.copyWith(isLoadingGetById: true, isContainsError: false));
 
       final url = Uri.parse('${ApiUrl.value}/invited-guest/id/$id');
       final response = await http.get(url, headers: {'ngrok-skip-browser-warning': 'true'});
@@ -131,7 +131,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
 
   Future<bool> updateById(String id, UpdateInvitedGuestRequest request) async {
     try {
-      emit(state.copyWith(isLoadingUpdateById: true, invitedGuestUpdateById: null.toCopyWithValue(), isContainsError: false));
+      emit(state.copyWith(isLoadingUpdateById: true, isContainsError: false));
 
       final url = Uri.parse('${ApiUrl.value}/invited-guest/id/$id');
       final response = await http.patch(
@@ -140,21 +140,9 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200) {
-        final InvitedGuestResponse invitedGuestUpdateById = InvitedGuestResponse.fromJson(jsonDecode(response.body)['data']);
-        final newInvitedGuests = <InvitedGuestResponse>[];
-        for (final item in state.invitedGuests ?? <InvitedGuestResponse>[]) {
-          if (item.id == invitedGuestUpdateById.id) newInvitedGuests.add(invitedGuestUpdateById);
-          if (item.id == invitedGuestUpdateById.id) continue;
-          newInvitedGuests.add(item);
-        }
+        final InvitedGuestResponse invitedGuest = InvitedGuestResponse.fromJson(jsonDecode(response.body)['data']);
 
-        emit(
-          state.copyWith(
-            isLoadingUpdateById: false,
-            invitedGuestUpdateById: invitedGuestUpdateById.toCopyWithValue(),
-            invitedGuests: newInvitedGuests.toCopyWithValue(),
-          ),
-        );
+        emit(state.copyWith(isLoadingUpdateById: false, invitedGuest: invitedGuest.toCopyWithValue()));
 
         return true;
       }
