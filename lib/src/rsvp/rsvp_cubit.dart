@@ -24,7 +24,7 @@ class RSVPCubit extends Cubit<RSVPState> {
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final RSVPResponse rsvp = RSVPResponse.fromJson(jsonDecode(response.body)['data']);
+        final rsvp = RSVPResponse.fromJson(jsonDecode(response.body)['data']);
 
         final updatedRSVPs = <RSVPResponse>[];
         for (final item in state.rsvps ?? <RSVPResponse>[]) {
@@ -61,9 +61,7 @@ class RSVPCubit extends Cubit<RSVPState> {
       final url = Uri.parse('${ApiUrl.value}/rsvps/invitation-id/$invitationId');
       final response = await http.get(url, headers: {'ngrok-skip-browser-warning': 'true'});
       if (response.statusCode == 200) {
-        final List<RSVPResponse> rsvps = (jsonDecode(response.body)['data'] as List)
-            .map((json) => RSVPResponse.fromJson(json))
-            .toList();
+        final rsvps = (jsonDecode(response.body)['data'] as List).map((json) => RSVPResponse.fromJson(json)).toList();
 
         emit(state.copyWith(isLoadingGetsByInvitationId: false, rsvps: rsvps.toCopyWithValue()));
 
