@@ -24,7 +24,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final InvitedGuestResponse invitedGuest = InvitedGuestResponse.fromJson(jsonDecode(response.body)['data']);
+        final invitedGuest = InvitedGuestResponse.fromJson(jsonDecode(response.body)['data']);
 
         emit(state.copyWith(isLoadingCheck: false, invitedGuest: invitedGuest.toCopyWithValue()));
 
@@ -54,7 +54,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200) {
-        final List<InvitedGuestResponse> invitedGuests = (jsonDecode(response.body)['data'] as List)
+        final invitedGuests = (jsonDecode(response.body)['data'] as List)
             .map((json) => InvitedGuestResponse.fromJson(json))
             .toList();
 
@@ -86,7 +86,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200) {
-        final List<InvitedGuestResponse> invitedGuests = (jsonDecode(response.body)['data'] as List)
+        final invitedGuests = (jsonDecode(response.body)['data'] as List)
             .map((json) => InvitedGuestResponse.fromJson(json))
             .toList();
 
@@ -112,7 +112,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
       final url = Uri.parse('${ApiUrl.value}/invited-guest/id/$id');
       final response = await http.get(url, headers: {'ngrok-skip-browser-warning': 'true'});
       if (response.statusCode == 200) {
-        final InvitedGuestResponse invitedGuest = InvitedGuestResponse.fromJson(jsonDecode(response.body)['data']);
+        final invitedGuest = InvitedGuestResponse.fromJson(jsonDecode(response.body)['data']);
 
         emit(state.copyWith(isLoadingGetById: false, invitedGuest: invitedGuest.toCopyWithValue()));
 
@@ -142,7 +142,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
       final url = Uri.parse('${ApiUrl.value}/invited-guests/invitation-id/$invitationId');
       final response = await http.get(url, headers: {'ngrok-skip-browser-warning': 'true'});
       if (response.statusCode == 200) {
-        final List<InvitedGuestResponse> invitedGuests = (jsonDecode(response.body)['data'] as List)
+        final invitedGuests = (jsonDecode(response.body)['data'] as List)
             .map((json) => InvitedGuestResponse.fromJson(json))
             .toList();
 
@@ -172,7 +172,7 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200) {
-        final InvitedGuestResponse invitedGuest = InvitedGuestResponse.fromJson(jsonDecode(response.body)['data']);
+        final invitedGuest = InvitedGuestResponse.fromJson(jsonDecode(response.body)['data']);
 
         final newInvitedGuests = <InvitedGuestResponse>[];
         for (final item in state.invitedGuests ?? <InvitedGuestResponse>[]) {
