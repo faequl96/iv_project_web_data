@@ -1,12 +1,11 @@
 name: iv_project_web_data
 description: "A new Flutter package project."
-version: 0.2.3
+version: 0.2.4
 homepage:
 publish_to: "none"
 
 environment:
   sdk: ^3.11.1
-  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
