@@ -20,7 +20,8 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
       final url = Uri.parse('${ApiUrl.value}/invited-guest');
       final response = await http.post(
         url,
-        headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
+        // headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
+        headers: {'Content-Type': 'application/json'},
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -50,7 +51,8 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
       final url = Uri.parse('${ApiUrl.value}/invited-guests');
       final response = await http.post(
         url,
-        headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
+        // headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
+        headers: {'Content-Type': 'application/json'},
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200) {
@@ -82,7 +84,8 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
       final url = Uri.parse('${ApiUrl.value}/invited-guests');
       final response = await http.patch(
         url,
-        headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
+        // headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
+        headers: {'Content-Type': 'application/json'},
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200) {
@@ -110,7 +113,10 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
       emit(state.copyWith(isLoadingGetById: true, isContainsError: false));
 
       final url = Uri.parse('${ApiUrl.value}/invited-guest/id/$id');
-      final response = await http.get(url, headers: {'ngrok-skip-browser-warning': 'true'});
+      final response = await http.get(
+        url,
+        // headers: {'ngrok-skip-browser-warning': 'true'}
+      );
       if (response.statusCode == 200) {
         final invitedGuest = InvitedGuestResponse.fromJson(jsonDecode(response.body)['data']);
 
@@ -140,7 +146,10 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
       );
 
       final url = Uri.parse('${ApiUrl.value}/invited-guests/invitation-id/$invitationId');
-      final response = await http.get(url, headers: {'ngrok-skip-browser-warning': 'true'});
+      final response = await http.get(
+        url,
+        // headers: {'ngrok-skip-browser-warning': 'true'}
+      );
       if (response.statusCode == 200) {
         final invitedGuests = (jsonDecode(response.body)['data'] as List)
             .map((json) => InvitedGuestResponse.fromJson(json))
@@ -168,7 +177,8 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
       final url = Uri.parse('${ApiUrl.value}/invited-guest/id/$id');
       final response = await http.patch(
         url,
-        headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
+        // headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
+        headers: {'Content-Type': 'application/json'},
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200) {

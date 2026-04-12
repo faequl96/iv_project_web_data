@@ -20,7 +20,8 @@ class RSVPCubit extends Cubit<RSVPState> {
       final url = Uri.parse('${ApiUrl.value}/rsvp');
       final response = await http.post(
         url,
-        headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
+        // headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
+        headers: {'Content-Type': 'application/json'},
         body: jsonEncode(request.toJson()),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -59,7 +60,10 @@ class RSVPCubit extends Cubit<RSVPState> {
       emit(state.copyWith(isLoadingGetsByInvitationId: true, rsvps: null.toCopyWithValue()));
 
       final url = Uri.parse('${ApiUrl.value}/rsvps/invitation-id/$invitationId');
-      final response = await http.get(url, headers: {'ngrok-skip-browser-warning': 'true'});
+      final response = await http.get(
+        url,
+        // headers: {'ngrok-skip-browser-warning': 'true'}
+      );
       if (response.statusCode == 200) {
         final rsvps = (jsonDecode(response.body)['data'] as List).map((json) => RSVPResponse.fromJson(json)).toList();
 
