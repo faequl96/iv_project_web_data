@@ -45,7 +45,11 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
   Future<bool> upsertCreate(BulkCreateInvitedGuestRequest request) async {
     try {
       emit(
-        state.copyWith(isLoadingUpsert: true, invitedGuests: <InvitedGuestResponse>[].toCopyWithValue(), isContainsError: false),
+        state.copyWith(
+          isLoadingUpsert: true,
+          invitedGuests: <InvitedGuestResponse>[].toCopyWithValue(),
+          isContainsError: false,
+        ),
       );
 
       final url = Uri.parse('${ApiUrl.value}/invited-guests');
@@ -60,7 +64,9 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
             .map((json) => InvitedGuestResponse.fromJson(json))
             .toList();
 
-        emit(state.copyWith(isLoadingUpsert: false, invitedGuests: invitedGuests.toCopyWithValue()));
+        emit(
+          state.copyWith(isLoadingUpsert: false, invitedGuests: invitedGuests.toCopyWithValue()),
+        );
 
         return true;
       }
@@ -78,7 +84,11 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
   Future<bool> upsertEdit(BulkEditInvitedGuestRequest request) async {
     try {
       emit(
-        state.copyWith(isLoadingUpsert: true, invitedGuests: <InvitedGuestResponse>[].toCopyWithValue(), isContainsError: false),
+        state.copyWith(
+          isLoadingUpsert: true,
+          invitedGuests: <InvitedGuestResponse>[].toCopyWithValue(),
+          isContainsError: false,
+        ),
       );
 
       final url = Uri.parse('${ApiUrl.value}/invited-guests');
@@ -93,7 +103,9 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
             .map((json) => InvitedGuestResponse.fromJson(json))
             .toList();
 
-        emit(state.copyWith(isLoadingUpsert: false, invitedGuests: invitedGuests.toCopyWithValue()));
+        emit(
+          state.copyWith(isLoadingUpsert: false, invitedGuests: invitedGuests.toCopyWithValue()),
+        );
 
         return true;
       }
@@ -155,7 +167,12 @@ class InvitedGuestCubit extends Cubit<InvitedGuestState> {
             .map((json) => InvitedGuestResponse.fromJson(json))
             .toList();
 
-        emit(state.copyWith(isLoadingGetsByInvitationId: false, invitedGuests: invitedGuests.toCopyWithValue()));
+        emit(
+          state.copyWith(
+            isLoadingGetsByInvitationId: false,
+            invitedGuests: invitedGuests.toCopyWithValue(),
+          ),
+        );
 
         return true;
       }

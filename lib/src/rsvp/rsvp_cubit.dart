@@ -31,7 +31,12 @@ class RSVPCubit extends Cubit<RSVPState> {
         for (final item in state.rsvps ?? <RSVPResponse>[]) {
           if (item.invitedGuest.id == rsvp.invitedGuest.id) {
             updatedRSVPs.add(
-              RSVPResponse(id: item.id, invitedGuest: rsvp.invitedGuest, message: item.message, createdAt: item.createdAt),
+              RSVPResponse(
+                id: item.id,
+                invitedGuest: rsvp.invitedGuest,
+                message: item.message,
+                createdAt: item.createdAt,
+              ),
             );
           } else {
             updatedRSVPs.add(item);
@@ -40,7 +45,13 @@ class RSVPCubit extends Cubit<RSVPState> {
 
         final newRSVPs = [rsvp, ...updatedRSVPs];
 
-        emit(state.copyWith(isLoadingCreate: false, rsvp: rsvp.toCopyWithValue(), rsvps: newRSVPs.toCopyWithValue()));
+        emit(
+          state.copyWith(
+            isLoadingCreate: false,
+            rsvp: rsvp.toCopyWithValue(),
+            rsvps: newRSVPs.toCopyWithValue(),
+          ),
+        );
 
         return true;
       }
@@ -65,7 +76,9 @@ class RSVPCubit extends Cubit<RSVPState> {
         // headers: {'ngrok-skip-browser-warning': 'true'}
       );
       if (response.statusCode == 200) {
-        final rsvps = (jsonDecode(response.body)['data'] as List).map((json) => RSVPResponse.fromJson(json)).toList();
+        final rsvps = (jsonDecode(response.body)['data'] as List)
+            .map((json) => RSVPResponse.fromJson(json))
+            .toList();
 
         emit(state.copyWith(isLoadingGetsByInvitationId: false, rsvps: rsvps.toCopyWithValue()));
 
