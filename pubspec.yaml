@@ -1,6 +1,6 @@
 name: iv_project_web_data
 description: "A new Flutter package project."
-version: 0.2.6
+version: 0.2.7
 homepage:
 publish_to: "none"
 
@@ -14,12 +14,12 @@ dependencies:
   iv_project_model:
     git:
       url: https://github.com/faequl96/iv_project_model.git
-      ref: 0.1.5
+      ref: 0.1.6
 
   iv_project_core:
     git:
       url: https://github.com/faequl96/iv_project_core.git
-      ref: 0.1.6
+      ref: 0.1.7
 
   equatable: ^2.1.0
   bloc: ^9.2.1
