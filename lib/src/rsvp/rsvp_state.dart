@@ -1,18 +1,11 @@
 part of 'rsvp_cubit.dart';
 
-class RSVPState extends Equatable {
-  const RSVPState({
-    this.isLoadingCreate = false,
-    this.isLoadingGetsByInvitationId = false,
-    this.rsvp,
-    this.rsvps,
-  });
-
-  final bool isLoadingCreate;
-  final bool isLoadingGetsByInvitationId;
-  final RSVPResponse? rsvp;
-  final List<RSVPResponse>? rsvps;
-
+class const RSVPState({
+  final bool isLoadingCreate = false,
+  final bool isLoadingGetsByInvitationId = false,
+  final RSVPResponse? rsvp,
+  final List<RSVPResponse>? rsvps,
+}) extends Equatable {
   RSVPState copyWith({
     bool? isLoadingCreate,
     bool? isLoadingGetsByInvitationId,

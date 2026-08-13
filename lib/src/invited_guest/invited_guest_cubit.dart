@@ -8,8 +8,8 @@ import 'package:iv_project_model/iv_project_model.dart';
 
 part 'invited_guest_state.dart';
 
-class InvitedGuestCubit extends Cubit<InvitedGuestState> {
-  InvitedGuestCubit() : super(const InvitedGuestState());
+class InvitedGuestCubit() extends Cubit<InvitedGuestState> {
+  this : super(const InvitedGuestState());
 
   void emitState(InvitedGuestState state) => emit(state);
 
