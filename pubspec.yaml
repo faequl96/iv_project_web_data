@@ -14,12 +14,12 @@ dependencies:
   iv_project_model:
     git:
       url: https://github.com/faequl96/iv_project_model.git
-      ref: 0.1.6
+      ref: 0.1.7
 
   iv_project_core:
     git:
       url: https://github.com/faequl96/iv_project_core.git
-      ref: 0.1.7
+      ref: 0.1.8
 
   equatable: ^2.1.0
   bloc: ^9.2.1
