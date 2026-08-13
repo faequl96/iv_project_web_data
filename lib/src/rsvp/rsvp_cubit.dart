@@ -8,8 +8,8 @@ import 'package:iv_project_model/iv_project_model.dart';
 
 part 'rsvp_state.dart';
 
-class RSVPCubit extends Cubit<RSVPState> {
-  RSVPCubit() : super(const RSVPState());
+class RSVPCubit() extends Cubit<RSVPState> {
+  this : super(const RSVPState());
 
   void emitState(RSVPState state) => emit(state);
 

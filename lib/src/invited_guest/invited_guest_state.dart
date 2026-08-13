@@ -1,26 +1,15 @@
 part of 'invited_guest_cubit.dart';
 
-class InvitedGuestState extends Equatable {
-  const InvitedGuestState({
-    this.isLoadingCheck = false,
-    this.isLoadingUpsert = false,
-    this.isLoadingGetById = false,
-    this.isLoadingGetsByInvitationId = false,
-    this.isLoadingUpdateById = false,
-    this.invitedGuest,
-    this.invitedGuests = const [],
-    this.isContainsError = false,
-  });
-
-  final bool isLoadingCheck;
-  final bool isLoadingUpsert;
-  final bool isLoadingGetById;
-  final bool isLoadingGetsByInvitationId;
-  final bool isLoadingUpdateById;
-  final InvitedGuestResponse? invitedGuest;
-  final List<InvitedGuestResponse>? invitedGuests;
-  final bool isContainsError;
-
+class const InvitedGuestState({
+  final bool isLoadingCheck = false,
+  final bool isLoadingUpsert = false,
+  final bool isLoadingGetById = false,
+  final bool isLoadingGetsByInvitationId = false,
+  final bool isLoadingUpdateById = false,
+  final InvitedGuestResponse? invitedGuest,
+  final List<InvitedGuestResponse>? invitedGuests = const [],
+  final bool isContainsError = false,
+}) extends Equatable {
   InvitedGuestState copyWith({
     bool? isLoadingCheck,
     bool? isLoadingUpsert,
